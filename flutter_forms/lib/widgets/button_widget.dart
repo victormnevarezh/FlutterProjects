@@ -24,7 +24,7 @@ class ButtonWidget extends StatelessWidget {
     this.width = -1.0,
     this.fontSize,
     this.otherColor = false,
-    this.colorButton = Global.ColorEmpresa,
+    this.colorButton = Global.colorEmpresa,
   }) : super(key: key);
 
   @override
@@ -41,9 +41,9 @@ class ButtonWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(4.0),
       child: Ink(
         decoration: BoxDecoration(
-          color: hasColor! ? Global.ColorBlanco
-                  :otherColor ! ? Global.ColorBlanco
-                  :Global.ColorEmpresa,
+          color: hasColor! ? Global.colorBlanco
+                  :otherColor ! ? colorButton
+                  :Global.colorEmpresa,
           borderRadius: BorderRadius.circular(4.0)
         ),
         child: InkWell(
@@ -56,7 +56,7 @@ class ButtonWidget extends StatelessWidget {
               child: Text(
                 title!,
                 style: TextStyle(
-                  color: hasColor! ? Global.ColorNegro : Global.ColorBlanco,
+                  color: hasColor! ? Global.colorNegro : Global.colorBlanco,
                   fontWeight: FontWeight.w400,
                   fontSize: fontSizeButton
                 ),

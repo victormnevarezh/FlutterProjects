@@ -33,7 +33,7 @@ import 'package:flutter/material.dart';
     this.onTap,
     this.readOnly = false,
     this.otherColor = false,
-    this.color,
+    this.color = Global.colorEmpresa,
     this.maxlong,
     this.onsuffixIconTap,
     this.isMaxlong = false,
@@ -78,8 +78,20 @@ import 'package:flutter/material.dart';
           borderSide: BorderSide(color: color!)
         ),
         labelText: hintText,
-        
-      )
-    );
+        prefixIcon:  isPrefixIcon == false ? null :
+              Icon(prefixIconData,
+              size: 30,
+              color: color,
+              ),
+        suffixIcon: isSuffixIcon == false ? null : GestureDetector(
+          onTap: onsuffixIconTap,
+          child: Icon(
+            suffixIconData,
+            size: 25,
+            color: color,
+          )
+          ),
+        )
+      );
   }
 }
