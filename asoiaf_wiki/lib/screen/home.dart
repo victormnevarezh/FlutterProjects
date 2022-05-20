@@ -1,3 +1,4 @@
+import 'package:asoiaf_wiki/screen/HousePage.dart';
 import 'package:flutter/material.dart';
 import 'package:asoiaf_wiki/util/global.dart';
 import 'package:asoiaf_wiki/widgets/card.dart'
@@ -47,16 +48,23 @@ class _HomePageState extends State<HomePage> {
                     ),
                     ),
 
-                                      Padding(
+                  Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: card(
                       title: 'Houses',
                       height: 50,
                       width: 300,
+                      onPressed: () {
+                         Navigator.push(
+                           context, 
+                           MaterialPageRoute(builder: (context) => HousePage()
+                           ),
+                          );
+                      },
                     ),
                     ),
 
-                                      Padding(
+                  Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: card(
                       title: 'Places',
