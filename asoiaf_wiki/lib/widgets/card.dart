@@ -36,32 +36,35 @@ const card({
       fontSizeButton = fontSize ?? 16;
     }
 
-    return Material(
-      borderRadius: BorderRadius.circular(20),
-      child: Ink(
-        decoration: BoxDecoration(
-          color: Global.colorSnow,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(10.0),
-          onTap: onPressed,
-          child: SizedBox(
-            height: height,
-            width: width! < 0 ? MediaQuery.of(context).size.width : width!,
-            child: Center(
-              child: Text(
-                title!,
-                style: TextStyle(
-                  color: Global.colorJet,
-                  fontWeight: FontWeight.w400,
-                  fontSize: fontSizeButton
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(20),
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Global.colorSnow,
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(15.0),
+            onTap: onPressed,
+            child: SizedBox(
+              height: height,
+              width: width,
+              child: Center(
+                child: Text(
+                  title!,
+                  style: TextStyle(
+                    color: Global.colorJet,
+                    fontWeight: FontWeight.w400,
+                    fontSize: fontSizeButton
+                  ),
                 ),
               ),
-            ),
-          )
-        ),
-      )
+            )
+          ),
+        )
+      ),
     );
   }
 }

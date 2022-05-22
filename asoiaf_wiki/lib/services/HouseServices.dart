@@ -7,15 +7,8 @@ import 'dart:convert';
 class HouseServices {
 
   Future<List<House>> getHouses() async {
-        print('CSM el coordi');
-    var url = Uri(host: 'https://www.anapioficeandfire.com/api/houses');
-    var response;
-    try{
-          response = await http.get(url);
-    } catch (e){
-      print(e);
-    }
-    print('Hola');
+    var url = Uri.parse('https://www.anapioficeandfire.com/api/houses');
+    var response = await http.get(url);
 
     final parsed = jsonDecode(response.body).cast<Map<String,dynamic>>();
     List<House> houses = parsed.map<House>((json) => House.fromJson(json)).toList();

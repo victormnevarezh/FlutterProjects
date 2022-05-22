@@ -6,7 +6,7 @@ import 'dart:convert';
 class BookServices {
 
   Future<List<Book>> getBooks() async {
-    var url = Uri(host: 'https://anapioficeandfire.com/api/books');
+    var url = Uri.parse('https://anapioficeandfire.com/api/books');
     var response = await http.get(url);
     final parsed = jsonDecode(response.body).cast<Map<String,dynamic>>();
     List<Book> books = parsed.map<Book>((json) => Book.fromJson(json)).toList();

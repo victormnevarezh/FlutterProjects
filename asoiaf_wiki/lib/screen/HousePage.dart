@@ -31,35 +31,38 @@ class _HousePageState extends State<HousePage> {
           ],
         ),
       ),
-      body: Container(
-         child: FutureBuilder(
+
+
+      body: FutureBuilder(
            future: houseServices.getHouses(),
            builder: (BuildContext context, AsyncSnapshot snapshot){
               
-            
              if(!snapshot.hasData){
                return Center(
-                child: Text('Not loading...'),
+                child: Text('Loading...'),
                );
              } 
-            
 
-             return ListView.builder(
-                 itemCount: snapshot.data.length,
-                 itemBuilder: (BuildContext context, int index){
-
-                   return card(
-                     title: snapshot.data[index].name,
-                     height: 50,
-                      width: 300,
-                   );
-
-
-                 }
+             return Container(
+               alignment: Alignment.center,
+               child: SizedBox(
+                 width: 400,
+                 child: ListView.builder(
+                     itemCount: snapshot.data.length,
+                     itemBuilder: (BuildContext context, int index){
+                       return card(
+                         title: snapshot.data[index].name,
+                         height: 50,
+                         width: 100,
+                       );
+                     }
+                 ),
+               ),
              );
+
+
            },
          ),
-      ),
     );
   }
 }
