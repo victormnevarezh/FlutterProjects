@@ -1,5 +1,6 @@
 import 'package:asoiaf_wiki/services/BookServices.dart';
 import 'package:asoiaf_wiki/widgets/card.dart';
+import 'package:asoiaf_wiki/widgets/bookCard.dart';
 import 'package:asoiaf_wiki/model/Book.dart';
 import 'package:flutter/material.dart';
 import 'package:asoiaf_wiki/util/global.dart';
@@ -26,6 +27,22 @@ class BookDetailPage extends StatelessWidget {
           ],
         ),
       ),
+
+      body: Builder(
+        builder: (context) {
+          return Center(
+            child: SingleChildScrollView(
+              child: bookCard(
+                height: 800,
+                width: 800,
+                title: selectedBook!.name,
+                authors: selectedBook!.authors,
+                numberOfPages: selectedBook!.numberOfPages,
+                publisher: selectedBook!.publisher,
+              )
+            ),
+          );
+      })
 
       
     );
