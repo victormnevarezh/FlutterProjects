@@ -128,7 +128,7 @@ const bookCard({
                             ),
                             Spacer(),
                             Text(
-                              getPublisher(numberOfPages),
+                              getPublisher(publisher),
                               style: TextStyle(
                                 color: Global.colorJet,
                                 fontWeight: FontWeight.w400,

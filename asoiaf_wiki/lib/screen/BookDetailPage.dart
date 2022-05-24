@@ -4,6 +4,7 @@ import 'package:asoiaf_wiki/widgets/bookCard.dart';
 import 'package:asoiaf_wiki/model/Book.dart';
 import 'package:flutter/material.dart';
 import 'package:asoiaf_wiki/util/global.dart';
+import 'package:animate_do/animate_do.dart';
 
 class BookDetailPage extends StatelessWidget {
   final Book? selectedBook;
@@ -23,7 +24,7 @@ class BookDetailPage extends StatelessWidget {
           children: [
           const Icon(Icons.shield),
           const SizedBox(width: 10),
-          Text(selectedBook!.name!)
+          Text('A Song of Ice and Fire ' + selectedBook!.name!)
           ],
         ),
       ),

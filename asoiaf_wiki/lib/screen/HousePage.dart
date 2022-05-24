@@ -3,6 +3,7 @@ import 'package:asoiaf_wiki/services/HouseServices.dart';
 import 'package:asoiaf_wiki/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:asoiaf_wiki/util/global.dart';
+import 'package:animate_do/animate_do.dart';
 
 class HousePage extends StatefulWidget {
   const HousePage({Key? key}) : super(key: key);

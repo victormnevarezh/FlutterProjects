@@ -6,7 +6,7 @@ class Global {
   static const Color colorSnow = const Color(0xFFF6EFEE);
   static const Color colorJet = const Color(0xFF2F2F2F);
 
-  static void mensaje(BuildContext context, String mensaje, String titulo, {Color backGroundColorCustom = Colors.redAccent}) {
+  static void mensaje(BuildContext context, String mensaje, String titulo, {Color backGroundColorCustom = Global.colorJet}) {
 
     Flushbar(
       title: titulo,

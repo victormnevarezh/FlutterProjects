@@ -1,5 +1,6 @@
 import 'package:asoiaf_wiki/screen/CharacterDetailPage.dart';
 import 'package:asoiaf_wiki/services/CharacterServices.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:asoiaf_wiki/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:asoiaf_wiki/util/global.dart';
@@ -26,7 +27,6 @@ class _CharacterPageState extends State<CharacterPage> {
     if(snapshot.data[index].aliases.toString() != ''){
       titleFinal += ' "' + snapshot.data[index].aliases[0].toString() + '"';
     }
-
     return titleFinal;
   }
 
@@ -64,11 +64,22 @@ class _CharacterPageState extends State<CharacterPage> {
                  child: ListView.builder(
                      itemCount: snapshot.data.length,
                      itemBuilder: (BuildContext context, int index){
-                       return card(
-                         
-                         title: getTitle(snapshot, index),
-                         height: 50,
-                         width: 100,
+                       return FadeInDown(
+                         child: card(
+                           
+                           title: getTitle(snapshot, index),
+                           height: 50,
+                           width: 100,
+                       
+                           onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => CharacterDetailPage(
+                                          selectedCharacter: snapshot.data[index],
+                                        )
+                                      )
+                                    );
+                              },
+                         ),
                        );
                      }
                  ),

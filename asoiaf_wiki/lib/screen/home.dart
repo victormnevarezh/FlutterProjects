@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:asoiaf_wiki/screen/HousePage.dart';
 import 'package:asoiaf_wiki/screen/CharacterPage.dart';
 import 'package:asoiaf_wiki/screen/BookPage.dart';
@@ -41,53 +42,62 @@ class _HomePageState extends State<HomePage> {
 
                 children: [
 
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: card(
-                      title: 'Characters',
-                      height: 50,
-                      width: 300,
-                      onPressed: () {
-                         Navigator.push(
-                           context, 
-                           MaterialPageRoute(builder: (context) => CharacterPage()
-                           ),
-                          );
-                      },
-                    ),
-                    ),
+                  FadeInDown(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: card(
+                        title: 'Characters',
+                        height: 50,
+                        width: 300,
+                        onPressed: () {
+                          Global.mensaje(context, 'You have opened characters, choose one to see the details', 'Characters!');
+                           Navigator.push(
+                             context, 
+                             MaterialPageRoute(builder: (context) => CharacterPage()
+                             ),
+                            );
+                        },
+                      ),
+                      ),
+                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: card(
-                      title: 'Houses',
-                      height: 50,
-                      width: 300,
-                      onPressed: () {
-                         Navigator.push(
-                           context, 
-                           MaterialPageRoute(builder: (context) => HousePage()
-                           ),
-                          );
-                      },
-                    ),
-                    ),
+                  FadeInDown(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: card(
+                        title: 'Houses',
+                        height: 50,
+                        width: 300,
+                        onPressed: () {
+                          Global.mensaje(context, 'You have opened houses, choose one to see the details', 'Houses!');
+                           Navigator.push(
+                             context, 
+                             MaterialPageRoute(builder: (context) => HousePage()
+                             ),
+                            );
+                        },
+                      ),
+                      ),
+                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: card(
-                      title: 'Books',
-                      height: 50,
-                      width: 300,
-                      onPressed: () {
-                         Navigator.push(
-                           context, 
-                           MaterialPageRoute(builder: (context) => BookPage()
-                           ),
-                          );
-                      },
-                    ),
-                    ),
+                  FadeInDown(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: card(
+                        title: 'Books',
+                        height: 50,
+                        width: 300,
+                        onPressed: () {
+                          Global.mensaje(context, 'You have opened books, choose one to see the details', 'Books!');
+                           Navigator.push(
+                             context, 
+                             MaterialPageRoute(builder: (context) => BookPage()
+                             ),
+                            );
+                        },
+                      ),
+                      ),
+                  ),
 
                 ],
               ),

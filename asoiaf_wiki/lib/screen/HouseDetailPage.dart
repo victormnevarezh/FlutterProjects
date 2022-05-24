@@ -12,6 +12,10 @@ class HouseDetailPage extends StatelessWidget {
     Key? key,
     this.selectedHouse
     }) : super(key: key);
+    
+    void runAlert(BuildContext context){
+       Global.mensaje(context, 'You have opened houses, choose one to see the details', 'Houses!');
+    }
 
     @override
     Widget build(BuildContext context){
@@ -24,7 +28,7 @@ class HouseDetailPage extends StatelessWidget {
             children: [
             const Icon(Icons.shield),
             const SizedBox(width: 10),
-            Text(selectedHouse!.name!)
+            Text('A Song of Ice and Fire - Wiki / ' + selectedHouse!.name!)
             ],
           ),
         ),
@@ -92,27 +96,27 @@ class HouseDetailPage extends StatelessWidget {
                   
                     Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      height: 50,
-                      width: 800,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Coat of Arms: ' + selectedHouse!.coatOfArms!,
-                            overflow: TextOverflow.ellipsis,
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.justify,
-                            maxLines: 5,
-                            style: TextStyle(
-                            color: Global.colorJet,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 20
-                            )
-                          )
-                        ],
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 500,
+                            child: Text(
+                              'Coat of Arms: ' + selectedHouse!.coatOfArms!,
+                              overflow: TextOverflow.clip,
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.justify,
+                              maxLines: 5,
+                              style: TextStyle(
+                              color: Global.colorJet,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20
+                              )
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
 
