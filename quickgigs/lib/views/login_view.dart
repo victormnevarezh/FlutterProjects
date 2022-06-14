@@ -17,6 +17,8 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _controllerUser = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
 
+  //TODO: Animations
+  //TODO: Loading
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

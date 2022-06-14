@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0)
       ),
-      home: LoginView()
+      home: HomeView()
     );
   }
 }

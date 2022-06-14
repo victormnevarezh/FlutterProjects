@@ -33,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
       body: Builder(
         builder: (context) {
           return Center(
-            
+            //TODO: Image carousel
           );
         }
         ),
