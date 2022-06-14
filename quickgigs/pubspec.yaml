@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.4
   async: ^2.8.2
   animate_do: ^2.1.0
+  animated_background: ^1.0.5
 
 dev_dependencies:
   flutter_test:

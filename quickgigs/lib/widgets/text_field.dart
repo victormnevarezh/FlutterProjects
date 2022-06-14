@@ -61,28 +61,49 @@ import 'package:flutter/material.dart';
       readOnly: readOnly!,
       obscureText: obscureText!,
       cursorColor: color,
+      textAlign: TextAlign.center,
+
       style: TextStyle(
         color: color,
         fontSize: fontSizeTextField,
       ),
+
       decoration: InputDecoration(
-        labelStyle: TextStyle(color: color),
+        hintStyle: TextStyle(
+          
+        ),
+
+        floatingLabelAlignment: FloatingLabelAlignment.center,
+
+        labelStyle: TextStyle(
+          
+          color: color),
+
         focusColor: color,
         filled: isfilled,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide(color: color!)
         ),
+
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide(color: color!)
         ),
-        labelText: hintText,
+
+        //labelText: hintText,
+        label: Center(
+          heightFactor: fontSizeTextField,
+          child: 
+        Text(hintText ?? ''),
+        ),
+
         prefixIcon:  isPrefixIcon == false ? null :
               Icon(prefixIconData,
               size: 30,
               color: color,
               ),
+
         suffixIcon: isSuffixIcon == false ? null : GestureDetector(
           onTap: onsuffixIconTap,
           child: Icon(

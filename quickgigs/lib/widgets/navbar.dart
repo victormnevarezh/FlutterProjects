@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
+import 'package:quickgigs/views/home_view.dart';
+import 'package:quickgigs/views/post_view.dart';
+import 'package:quickgigs/views/search_view.dart';
 
 class NavBar extends StatelessWidget {
   @override
@@ -19,17 +22,37 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home_rounded),
             title: Text('Home'),
-            onTap: () => null,
+            onTap: () => (
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => HomeView()
+                ),
+              )
+            ),
           ),
+          
           ListTile(
             leading: Icon(Icons.post_add_rounded),
             title: Text('Post'),
-            onTap: () => null,
+            onTap: () => (
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => PostView()
+                ),
+              )
+            ),
           ),
+
           ListTile(
             leading: Icon(Icons.search_rounded),
             title: Text('Search'),
-            onTap: () => null,
+            onTap: () => (
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => SearchView()
+                ),
+              )
+            ),
           ),
 
         ],

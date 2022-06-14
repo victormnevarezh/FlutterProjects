@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
-import 'package:quickgigs/views/home_view.dart';
-import 'package:quickgigs/views/register_view.dart';
 import 'package:quickgigs/widgets/text_field.dart';
 import 'package:quickgigs/widgets/button.dart';
+import 'package:quickgigs/widgets/NavBar.dart';
 import 'package:animated_background/animated_background.dart';
 
-class LoginView extends StatefulWidget {
-  LoginView({ Key? key }) : super(key: key);
-
-  //Run: flutter run -d chrome --no-sound-null-safety
+class RegisterView extends StatefulWidget {
+  RegisterView({ Key? key }) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMixin {
-  // Defining Particles for animation.
+class _RegisterViewState extends State<RegisterView> with SingleTickerProviderStateMixin {
+// Defining Particles for animation.
 ParticleOptions particles = const ParticleOptions(
     baseColor: Global.colorWhite,
     spawnOpacity: 0.0,
@@ -33,8 +30,9 @@ ParticleOptions particles = const ParticleOptions(
   @override
   Widget build(BuildContext context) {
 
-  final TextEditingController _controllerUser = TextEditingController();
+  final TextEditingController _controllerMail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerName = TextEditingController();
 
   //TODO: Animations
   //TODO: Loading
@@ -62,15 +60,14 @@ ParticleOptions particles = const ParticleOptions(
             return Center(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
       
                   children: [
-      
                     Padding(
                       padding: const EdgeInsets.all(40.0),
                       child: Text(
-                        'Log In',
+                        'Register',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'BreeSerif',
@@ -81,13 +78,13 @@ ParticleOptions particles = const ParticleOptions(
                     ),
       
                     Padding(
-                      padding: const EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
-                        hintText: 'email',
+                        hintText: 'Mail',
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
-                        controller: _controllerUser,
+                        controller: _controllerMail,
                         onChanged: (String value) {
                           print('click');
                         },
@@ -95,7 +92,7 @@ ParticleOptions particles = const ParticleOptions(
                     ),
               
                     Padding(
-                      padding: const EdgeInsets.all(30.0),
+                        padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
                         hintText: 'Password',
                         isPrefixIcon: false,
@@ -110,8 +107,22 @@ ParticleOptions particles = const ParticleOptions(
       
                     Padding(
                       padding: const EdgeInsets.all(30.0),
+                      child: TextFieldWidget(
+                        hintText: 'Full Name',
+                        isPrefixIcon: false,
+                        isSuffixIcon: false,
+                        isMyControllerActivate: true,
+                        controller: _controllerName,
+                        onChanged: (String value) {
+                          print('click');
+                        },
+                      ),
+                    ),
+      
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
                       child: ButtonWidget(
-                        title: 'Login',
+                        title: 'Register',
                         width: 600.0,
                         height: 40.0,
                         otherColor: true,
@@ -119,45 +130,14 @@ ParticleOptions particles = const ParticleOptions(
                         colorButton: Global.colorWhite,
                         onPressed: () {
                                 
-                          if(_controllerUser.text.isEmpty || _controllerPassword.text.isEmpty) {
-                            Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields');
+                          if(_controllerMail.text.isEmpty || _controllerPassword.text.isEmpty ||  _controllerName.text.isEmpty) {
+                            Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields to register');
                             return;
                           }
-      
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => HomeView()
-                          )
-                        );
                                 
-                          print('Button Pressed ${_controllerUser.text}');
+                          print('Button Pressed ${_controllerMail.text}');
                         },
                       ),
-                    ),
-                    
-                    Text(
-                      "Haven't you registered yet?",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Global.colorWhite,
-                      )
-                    ),
-                    
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        primary: Global.colorWhite,
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold
-                          ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => RegisterView()
-                          )
-                        );
-                      },
-                      child: const Text('Register here'),
                     ),
       
                   ],
