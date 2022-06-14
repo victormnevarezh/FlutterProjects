@@ -1,4 +1,4 @@
-package com.example.quickgigs
+package com.quickgigs.quickgigs
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -31,7 +31,7 @@ class _SearchViewState extends State<SearchView> with SingleTickerProviderStateM
           mainAxisSize: MainAxisSize.min,
           children: [
           SizedBox(width: 10),
-          Image.asset('logo.png', fit: BoxFit.contain),
+          Image.asset('assets/logo.png', fit: BoxFit.contain),
           Text(' QuickGigs', style: TextStyle(fontFamily: 'BreeSerif'))
           ],
         ),

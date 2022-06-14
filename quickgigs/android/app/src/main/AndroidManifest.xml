@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.quickgigs">
+    package="com.quickgigs.quickgigs">
    <application
         android:label="quickgigs"
         android:name="${applicationName}"

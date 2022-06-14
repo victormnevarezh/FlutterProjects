@@ -10,6 +10,7 @@ class LoginView extends StatefulWidget {
   LoginView({ Key? key }) : super(key: key);
 
   //Run: flutter run -d chrome --no-sound-null-safety
+  //Run:  flutter run --no-sound-null-safety
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -47,8 +48,7 @@ ParticleOptions particles = const ParticleOptions(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-          SizedBox(width: 10),
-          Image.asset('logo.png', fit: BoxFit.contain),
+          Image.asset('assets/logo.png', fit: BoxFit.scaleDown),
           Text(' QuickGigs', style: TextStyle(fontFamily: 'BreeSerif'))
           ],
         ),
