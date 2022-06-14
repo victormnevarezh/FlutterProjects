@@ -55,6 +55,18 @@ class NavBar extends StatelessWidget {
             ),
           ),
 
+          ListTile(
+            leading: Icon(Icons.logout_rounded),
+            title: Text('LogOut'),
+            onTap: () => (
+              Navigator.push(
+                context, 
+                MaterialPageRoute(builder: (context) => SearchView()
+                ),
+              )
+            ),
+          ),
+
         ],
       ),
     );

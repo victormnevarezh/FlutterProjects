@@ -5,6 +5,7 @@ class Global {
   static const Color colorBlack = Color.fromARGB(255, 0, 0, 0);
   static const Color colorWhite = Color.fromARGB(255, 255, 255, 255);
   static const Color colorYellow = Color.fromARGB(221, 219, 169, 60);
+  static const Color colorGrey = Color(0xFF636363);
 
   static void mensaje(BuildContext context, String mensaje, String titulo, {Color backGroundColorCustom = Global.colorBlack}) {
 

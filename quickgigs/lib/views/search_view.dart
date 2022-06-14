@@ -11,7 +11,7 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> {
+class _SearchViewState extends State<SearchView> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
