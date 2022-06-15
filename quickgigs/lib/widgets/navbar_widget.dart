@@ -1,19 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/views/home_view.dart';
 import 'package:quickgigs/views/post_view.dart';
 import 'package:quickgigs/views/search_view.dart';
+import '../services/authentication_service.dart';
 
 class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final authService = Provider.of<AuthService>(context);
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com'),
-            accountEmail: Text('example@gmail.com'),
+            accountName: Text('Oflutter.com', style: TextStyle(color: Global.colorWhite)),
+            accountEmail: Text('example@gmail.com', style: TextStyle(color: Global.colorWhite)),
             decoration: BoxDecoration(
               color: Global.colorBlack,
             ),
@@ -58,15 +64,10 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout_rounded),
             title: Text('LogOut'),
-            onTap: () => (
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => SearchView()
-                ),
-              )
-            ),
+            onTap: () async  {
+              await authService.signOut();
+            }
           ),
-
         ],
       ),
     );

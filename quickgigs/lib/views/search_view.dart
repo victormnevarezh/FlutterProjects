@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
-import 'package:quickgigs/widgets/text_field.dart';
-import 'package:quickgigs/widgets/button.dart';
-import 'package:quickgigs/widgets/NavBar.dart';
+import 'package:quickgigs/widgets/textfield_widget.dart';
+import 'package:quickgigs/widgets/button_widget.dart';
+import 'package:quickgigs/widgets/navbar_widget.dart';
 
 class SearchView extends StatefulWidget {
   SearchView({ Key? key }) : super(key: key);

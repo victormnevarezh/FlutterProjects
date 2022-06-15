@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/views/post_view.dart';
 import 'package:quickgigs/views/search_view.dart';
-import 'package:quickgigs/widgets/NavBar.dart';
+import 'package:quickgigs/widgets/navbar_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:quickgigs/widgets/button.dart';
+import 'package:quickgigs/widgets/button_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({ Key? key }) : super(key: key);

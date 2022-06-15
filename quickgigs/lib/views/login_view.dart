@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/widgets/appbar_widget.dart';
 import 'package:quickgigs/widgets/textfield_widget.dart';
 import 'package:quickgigs/widgets/button_widget.dart';
-import 'package:quickgigs/widgets/navbar_widget.dart';
 import 'package:animated_background/animated_background.dart';
 
-class RegisterView extends StatefulWidget {
-  RegisterView({ Key? key }) : super(key: key);
+import '../services/authentication_service.dart';
+
+  //Run: flutter run -d chrome --no-sound-null-safety
+  //Run:  flutter run --no-sound-null-safety
+
+class LoginView extends StatefulWidget {
+  LoginView({ Key? key }) : super(key: key);
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> with SingleTickerProviderStateMixin {
-// Defining Particles for animation.
-ParticleOptions particles = const ParticleOptions(
+class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMixin{
+  // Defining Particles for animation.
+  ParticleOptions particles = const ParticleOptions(
     baseColor: Global.colorWhite,
     spawnOpacity: 0.0,
     opacityChangeRate: 0.25,
@@ -30,14 +35,12 @@ ParticleOptions particles = const ParticleOptions(
 
   @override
   Widget build(BuildContext context) {
-
-  final TextEditingController _controllerMail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
-  final TextEditingController _controllerName = TextEditingController();
+    final TextEditingController _controllerMail = TextEditingController();
+    final TextEditingController _controllerPassword = TextEditingController();
+    final auth = Provider.of<AuthService>(context);
 
     return Scaffold(
       appBar: AppBarWidget(),
-
       body: AnimatedBackground(
         vsync: this,
         behaviour: RandomParticleBehaviour(options: particles),
@@ -46,14 +49,15 @@ ParticleOptions particles = const ParticleOptions(
             return Center(
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
       
                   children: [
+      
                     Padding(
                       padding: const EdgeInsets.all(40.0),
                       child: Text(
-                        'Register',
+                        'Log In',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'BreeSerif',
@@ -64,76 +68,74 @@ ParticleOptions particles = const ParticleOptions(
                     ),
       
                     Padding(
-                        padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
-                        hintText: 'Mail',
+                        hintText: 'Email',
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
                         controller: _controllerMail,
-                        onChanged: (String value) {
-                          print('click');
-                        },
                       ),
                     ),
               
                     Padding(
-                        padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
                         hintText: 'Password',
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
                         controller: _controllerPassword,
-                        onChanged: (String value) {
-                          print('click');
-                        },
-                      ),
-                    ),
-      
-                    Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: TextFieldWidget(
-                        hintText: 'Full Name',
-                        isPrefixIcon: false,
-                        isSuffixIcon: false,
-                        isMyControllerActivate: true,
-                        controller: _controllerName,
-                        onChanged: (String value) {
-                          print('click');
-                        },
                       ),
                     ),
       
                     Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: ButtonWidget(
-                        title: 'Register',
+                        title: 'Login',
                         width: 600.0,
                         height: 40.0,
                         otherColor: true,
                         hasColor: false,
                         colorButton: Global.colorWhite,
                         onPressed: () {
-                                
-                          if(_controllerMail.text.isEmpty || _controllerPassword.text.isEmpty ||  _controllerName.text.isEmpty) {
-                            Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields to register');
-                            return;
-                          }
-                                
-                          print('Button Pressed ${_controllerMail.text}');
+                            auth.signInWithEmailAndPassword(
+                            _controllerMail.text,
+                            _controllerPassword.text,
+                          );
                         },
                       ),
                     ),
-                    
-      
+
+
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('No account?  ', textAlign: TextAlign.center, style: TextStyle(color: Global.colorWhite)),
+                          
+                          TextButton(
+                            child: const Text('Register here'),
+                            style: TextButton.styleFrom(
+                              primary: Global.colorWhite,
+                              onSurface: Global.colorWhite
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/register');
+                            },
+                          ),
+                        ],
+                      ),
+                      ),
+
                   ],
                 ),
               ),
             );
           }
           ),
-      ),
+      )
     );
   }
 }
