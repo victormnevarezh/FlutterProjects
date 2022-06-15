@@ -22,7 +22,6 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       drawer: NavBar(),
       appBar: AppBar(
-
         centerTitle: true,
         backgroundColor: Global.colorWhite,
         foregroundColor: Global.colorBlack,

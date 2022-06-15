@@ -1,26 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
-import 'package:quickgigs/views/home_view.dart';
 import 'package:quickgigs/views/register_view.dart';
 import 'package:quickgigs/widgets/text_field.dart';
 import 'package:quickgigs/widgets/button.dart';
 import 'package:animated_background/animated_background.dart';
+import '../main.dart';
 
-  //Run: flutter run -d chrome --no-sound-null-safety
-  //Run:  flutter run --no-sound-null-safety
+class LoginWidget extends StatefulWidget {
+  final VoidCallback onClickedSignUp;
 
-class LoginView extends StatefulWidget {
-  LoginView({ Key? key }) : super(key: key);
+  const LoginWidget({ 
+    Key? key,
+    required this.onClickedSignUp
+    }) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<LoginWidget> createState() => _LoginWidgetState();
 }
 
-class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMixin {
-  // Defining Particles for animation.
-  ParticleOptions particles = const ParticleOptions(
+class _LoginWidgetState extends State<LoginWidget> with SingleTickerProviderStateMixin {
+
+    // Defining Particles for animation.
+    ParticleOptions particles = const ParticleOptions(
       baseColor: Global.colorWhite,
       spawnOpacity: 0.0,
       opacityChangeRate: 0.25,
@@ -33,55 +36,14 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
       spawnMinRadius: 7.0,
     );
 
-  @override
+  //Controllers
+  final TextEditingController _controllerUser = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
 
-  //InitState function, whenever the view is initialized
-    void initState() {
-      super.initState();
-      getUsers();
-    }
+    @override
 
-    //GET Function for users
-    void getUsers() async {
-      //Select the collection
-      CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
-
-      //Makes the query
-      QuerySnapshot users = await userCollection.get();
-
-      if(users.docs.length != 0) {
-        for (var doc in users.docs) {
-          print(doc.data());
-          print("Entró jajajajaa");
-        }
-      } else{
-        print("No entro aaaaaaaaaaaaaaaa");
-      }
-    }
-
-  Widget build(BuildContext context) {
-    //Controllers
-    final TextEditingController _controllerUser = TextEditingController();
-    final TextEditingController _controllerPassword = TextEditingController();
-
-  //TODO: Animations
-  //TODO: Loading
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Global.colorWhite,
-        foregroundColor: Global.colorBlack,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-          Image.asset('assets/logo.png', fit: BoxFit.scaleDown),
-          Text(' QuickGigs', style: TextStyle(fontFamily: 'BreeSerif'))
-          ],
-        ),
-      ),
-
-      body: AnimatedBackground(
+    Widget build(BuildContext context) {
+      return AnimatedBackground(
         vsync: this,
         behaviour: RandomParticleBehaviour(options: particles),
         child: Builder(
@@ -145,46 +107,35 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                         hasColor: false,
                         colorButton: Global.colorWhite,
                         onPressed: () {
-                                
+                          signIn();
+                          /*
                           if(_controllerUser.text.isEmpty || _controllerPassword.text.isEmpty) {
                             Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields');
                             return;
                           }
       
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => HomeView()
-                          )
-                        );
-                                
-                          print('Button Pressed ${_controllerUser.text}');
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(builder: (context) => HomeView())
+                          );
+                        */
                         },
                       ),
                     ),
-                    
-                    Text(
-                      "Haven't you registered yet?",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Global.colorWhite,
-                      )
-                    ),
-                    
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        primary: Global.colorWhite,
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold
-                          ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => RegisterView()
+
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(color: Global.colorWhite),
+                        text: "No account?",
+                        children: [
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = widget.onClickedSignUp,
+                            text: '  Register here',
+                            style: TextStyle(fontStyle: FontStyle.italic, fontWeight: FontWeight.w900)
                           )
-                        );
-                      },
-                      child: const Text('Register here'),
+                        ]
+                      ),
                     ),
       
                   ],
@@ -193,7 +144,25 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
             );
           }
           ),
-      ),
-    );
-  }
+      );
+    }
+
+    Future signIn() async {
+      showDialog(
+        context: context, 
+        barrierDismissible: false,
+        builder: (context) => Center(child: CircularProgressIndicator()),
+      );
+
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _controllerUser.text.trim(),
+        password: _controllerPassword.text.trim(),
+      );
+      } on FirebaseAuthException catch (e) {
+        print(e);
+      }
+
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    }
 }

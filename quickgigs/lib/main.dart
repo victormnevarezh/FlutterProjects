@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:quickgigs/views/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:quickgigs/views/login_view.dart';
+import 'package:quickgigs/views/main_view.dart';
 import 'package:quickgigs/views/register_view.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,13 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0)
       ),
-      home: LoginView()
+      home: MainView()
     );
   }
 }
