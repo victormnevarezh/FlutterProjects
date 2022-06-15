@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "521236962983",
+    "project_id": "quickgigs-1c8cf",
+    "storage_bucket": "quickgigs-1c8cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:521236962983:android:bd66253d7438f0c3c9c582",
+        "android_client_info": {
+          "package_name": "com.quickgigs.quickgigs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "521236962983-q6a28jp5r33p5kt98pmlrkh60a2hkfc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCphTBZ4SnbBd14MRyOlOXBPoaQORvpG5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "521236962983-q6a28jp5r33p5kt98pmlrkh60a2hkfc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

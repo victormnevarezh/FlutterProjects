@@ -1,10 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:quickgigs/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:quickgigs/views/login_view.dart';
 import 'package:quickgigs/views/register_view.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp().then((value) {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {

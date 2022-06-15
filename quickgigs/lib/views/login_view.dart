@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/views/home_view.dart';
@@ -6,11 +8,11 @@ import 'package:quickgigs/widgets/text_field.dart';
 import 'package:quickgigs/widgets/button.dart';
 import 'package:animated_background/animated_background.dart';
 
-class LoginView extends StatefulWidget {
-  LoginView({ Key? key }) : super(key: key);
-
   //Run: flutter run -d chrome --no-sound-null-safety
   //Run:  flutter run --no-sound-null-safety
+
+class LoginView extends StatefulWidget {
+  LoginView({ Key? key }) : super(key: key);
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -18,24 +20,49 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMixin {
   // Defining Particles for animation.
-ParticleOptions particles = const ParticleOptions(
-    baseColor: Global.colorWhite,
-    spawnOpacity: 0.0,
-    opacityChangeRate: 0.25,
-    minOpacity: 0.1,
-    maxOpacity: 0.4,
-    particleCount: 70,
-    spawnMaxRadius: 15.0,
-    spawnMaxSpeed: 100.0,
-    spawnMinSpeed: 30,
-    spawnMinRadius: 7.0,
-  );
+  ParticleOptions particles = const ParticleOptions(
+      baseColor: Global.colorWhite,
+      spawnOpacity: 0.0,
+      opacityChangeRate: 0.25,
+      minOpacity: 0.1,
+      maxOpacity: 0.4,
+      particleCount: 70,
+      spawnMaxRadius: 15.0,
+      spawnMaxSpeed: 100.0,
+      spawnMinSpeed: 30,
+      spawnMinRadius: 7.0,
+    );
 
   @override
-  Widget build(BuildContext context) {
 
-  final TextEditingController _controllerUser = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
+  //InitState function, whenever the view is initialized
+    void initState() {
+      super.initState();
+      getUsers();
+    }
+
+    //GET Function for users
+    void getUsers() async {
+      //Select the collection
+      CollectionReference userCollection = FirebaseFirestore.instance.collection('user');
+
+      //Makes the query
+      QuerySnapshot users = await userCollection.get();
+
+      if(users.docs.length != 0) {
+        for (var doc in users.docs) {
+          print(doc.data());
+          print("Entró jajajajaa");
+        }
+      } else{
+        print("No entro aaaaaaaaaaaaaaaa");
+      }
+    }
+
+  Widget build(BuildContext context) {
+    //Controllers
+    final TextEditingController _controllerUser = TextEditingController();
+    final TextEditingController _controllerPassword = TextEditingController();
 
   //TODO: Animations
   //TODO: Loading
@@ -83,7 +110,7 @@ ParticleOptions particles = const ParticleOptions(
                     Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
-                        hintText: 'email',
+                        hintText: 'Email',
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
