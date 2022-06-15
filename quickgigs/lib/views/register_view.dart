@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/widgets/appbar_widget.dart';
 import 'package:quickgigs/widgets/textfield_widget.dart';
 import 'package:quickgigs/widgets/button_widget.dart';
-import 'package:quickgigs/widgets/navbar_widget.dart';
+import '../services/authentication_service.dart';
 import 'package:animated_background/animated_background.dart';
 
 class RegisterView extends StatefulWidget {
@@ -33,7 +34,8 @@ ParticleOptions particles = const ParticleOptions(
 
   final TextEditingController _controllerMail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final TextEditingController _controllerName = TextEditingController();
+  final TextEditingController _controllerVerifyPassword = TextEditingController();
+  final auth = Provider.of<AuthService>(context);
 
     return Scaffold(
       appBar: AppBarWidget(),
@@ -94,11 +96,11 @@ ParticleOptions particles = const ParticleOptions(
                     Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
-                        hintText: 'Full Name',
+                        hintText: 'Repeat password',
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
-                        controller: _controllerName,
+                        controller: _controllerVerifyPassword,
                         onChanged: (String value) {
                           print('click');
                         },
@@ -114,14 +116,25 @@ ParticleOptions particles = const ParticleOptions(
                         otherColor: true,
                         hasColor: false,
                         colorButton: Global.colorWhite,
-                        onPressed: () {
-                                
-                          if(_controllerMail.text.isEmpty || _controllerPassword.text.isEmpty ||  _controllerName.text.isEmpty) {
-                            Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields to register');
-                            return;
+                        onPressed: () async {
+                          if(_controllerMail.text.isNotEmpty && _controllerPassword.text.isNotEmpty && _controllerVerifyPassword.text.isNotEmpty){
+                            if(_controllerPassword.text == _controllerVerifyPassword.text){
+                                try {
+                                  await auth.createUserWithEmailAndPassword(
+                                  _controllerMail.text,
+                                  _controllerPassword.text
+                                );
+                                Navigator.pop(context);
+                              } catch (e) {
+                                Global.mensaje(context, "Error while creating a user", "Sorry, it seems something is wrong");
+                                return;
+                              }
+                            } else {
+                              Global.mensaje(context, "Passwords don't match", "It seems the passwords do not match");
+                            }
+                          } else {
+                            Global.mensaje(context, "Empty fields", "You must fill all the fields in order to register");
                           }
-                                
-                          print('Button Pressed ${_controllerMail.text}');
                         },
                       ),
                     ),

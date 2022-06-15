@@ -5,7 +5,6 @@ import 'package:quickgigs/widgets/appbar_widget.dart';
 import 'package:quickgigs/widgets/textfield_widget.dart';
 import 'package:quickgigs/widgets/button_widget.dart';
 import 'package:animated_background/animated_background.dart';
-
 import '../services/authentication_service.dart';
 
   //Run: flutter run -d chrome --no-sound-null-safety
