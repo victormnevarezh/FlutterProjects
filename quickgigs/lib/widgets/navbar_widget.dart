@@ -32,7 +32,7 @@ class _NavBarState extends State<NavBar> {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text('Account mail:', style: TextStyle(color: Global.colorWhite)),
-            accountEmail: Text(mailData() ?? "Not received", style: TextStyle(color: Global.colorWhite)),
+            accountEmail: Text(mailData(), style: TextStyle(color: Global.colorWhite)),
             decoration: BoxDecoration(
               color: Global.colorBlack,
             ),

@@ -142,7 +142,6 @@ ParticleOptions particles = const ParticleOptions(
                       ),
                     ),
       
-                    //AQUÍ
                     Padding(
                       padding: const EdgeInsets.all(30.0),
                       child:
@@ -199,7 +198,7 @@ ParticleOptions particles = const ParticleOptions(
                                 .toList(),
                         validator: (value) {
                           if (value == null) {
-                            Global.mensaje(context, 'You must select a city', 'Please select the city where you are willing to work in');
+                            Global.mensaje(context, 'You must select a city', 'Please select the city where you are offering your gig');
                             return;
                           }
                         },
@@ -211,8 +210,7 @@ ParticleOptions particles = const ParticleOptions(
                         },
                       ),
                     ),
-      
-      
+
                     Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: ButtonWidget(
