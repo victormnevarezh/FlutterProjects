@@ -7,7 +7,20 @@ import 'package:quickgigs/views/post_view.dart';
 import 'package:quickgigs/views/search_view.dart';
 import '../services/authentication_service.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  String mailData() {
+    var currentUser = FirebaseAuth.instance.currentUser;
+    return currentUser!.email ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -18,8 +31,8 @@ class NavBar extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text('Oflutter.com', style: TextStyle(color: Global.colorWhite)),
-            accountEmail: Text('example@gmail.com', style: TextStyle(color: Global.colorWhite)),
+            accountName: Text('Account mail:', style: TextStyle(color: Global.colorWhite)),
+            accountEmail: Text(mailData() ?? "Not received", style: TextStyle(color: Global.colorWhite)),
             decoration: BoxDecoration(
               color: Global.colorBlack,
             ),

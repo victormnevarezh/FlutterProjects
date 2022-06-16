@@ -40,6 +40,7 @@ ParticleOptions particles = const ParticleOptions(
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerDescription = TextEditingController();
   final TextEditingController _controllerAdress = TextEditingController();
+  final TextEditingController _controllerNumber = TextEditingController();
 
 
   //TODO: Animations
@@ -87,7 +88,7 @@ ParticleOptions particles = const ParticleOptions(
                           ),
       
                     Padding(
-                        padding: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: TextFieldWidget(
                         hintText: 'Title of your post',
                         isPrefixIcon: false,
@@ -127,7 +128,19 @@ ParticleOptions particles = const ParticleOptions(
                         },
                       ),
                     ),
-      
+
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: TextFieldWidget(
+                        hintText: 'Contact Number',
+                        isPrefixIcon: false,
+                        isSuffixIcon: false,
+                        isMyControllerActivate: true,
+                        controller: _controllerNumber,
+                        onChanged: (String value) {
+                        },
+                      ),
+                    ),
       
                     //AQUÍ
                     Padding(
@@ -211,9 +224,14 @@ ParticleOptions particles = const ParticleOptions(
                         colorButton: Global.colorWhite,
                         onPressed: () {
                                 
-                          if(_controllerTitle.text.isEmpty || _controllerDescription.text.isEmpty || _controllerAdress.text.isEmpty) {
+                          if(_controllerTitle.text.isEmpty || _controllerDescription.text.isEmpty || _controllerAdress.text.isEmpty || _controllerNumber.text.isEmpty) {
                             Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields');
                             return;
+                          } else {
+                            try {
+                              
+                            } catch (e) {
+                            }
                           }
 
                         },
