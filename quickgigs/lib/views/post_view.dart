@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
+import 'package:quickgigs/widgets/appbar_drawer_widget.dart';
 import 'package:quickgigs/widgets/textfield_widget.dart';
 import 'package:quickgigs/widgets/button_widget.dart';
 import 'package:quickgigs/widgets/navbar_widget.dart';
@@ -32,35 +35,23 @@ ParticleOptions particles = const ParticleOptions(
   // Initial Selected Value
   List<String> _cities = ["Guadalajara", "CDMX", "Monterrey", "Querétaro", "León"];
 
-  String? selectedValue;
+  String? selectedValue = '';
   
   @override
   Widget build(BuildContext context) {
 
   final TextEditingController _controllerTitle = TextEditingController();
   final TextEditingController _controllerDescription = TextEditingController();
-  final TextEditingController _controllerAdress = TextEditingController();
+  final TextEditingController _controllerAddress = TextEditingController();
   final TextEditingController _controllerNumber = TextEditingController();
 
+  CollectionReference gigs = FirebaseFirestore.instance.collection('gig');
 
   //TODO: Animations
   //TODO: Loading
     return Scaffold(
       drawer: NavBar(),
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Global.colorWhite,
-        foregroundColor: Global.colorBlack,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-          SizedBox(width: 10),
-          Image.asset('assets/logo.png', fit: BoxFit.contain),
-          Text(' QuickGigs', style: TextStyle(fontFamily: 'BreeSerif'))
-          ],
-        ),
-      ),
+      appBar: AppBarDrawerWidget(),
 
       body: AnimatedBackground(
         vsync: this,
@@ -95,9 +86,6 @@ ParticleOptions particles = const ParticleOptions(
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
                         controller: _controllerTitle,
-                        onChanged: (String value) {
-                          print('click');
-                        },
                       ),
                     ),
               
@@ -109,9 +97,6 @@ ParticleOptions particles = const ParticleOptions(
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
                         controller: _controllerDescription,
-                        onChanged: (String value) {
-                          print('click');
-                        },
                       ),
                     ),
       
@@ -122,10 +107,7 @@ ParticleOptions particles = const ParticleOptions(
                         isPrefixIcon: false,
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
-                        controller: _controllerAdress,
-                        onChanged: (String value) {
-                          print('click');
-                        },
+                        controller: _controllerAddress,
                       ),
                     ),
 
@@ -137,8 +119,6 @@ ParticleOptions particles = const ParticleOptions(
                         isSuffixIcon: false,
                         isMyControllerActivate: true,
                         controller: _controllerNumber,
-                        onChanged: (String value) {
-                        },
                       ),
                     ),
       
@@ -203,7 +183,7 @@ ParticleOptions particles = const ParticleOptions(
                           }
                         },
                         onChanged: (value) {
-                          //Do something when changing the item if you want.
+                          selectedValue = value.toString();
                         },
                         onSaved: (value) {
                           selectedValue = value.toString();
@@ -220,15 +200,43 @@ ParticleOptions particles = const ParticleOptions(
                         otherColor: true,
                         hasColor: false,
                         colorButton: Global.colorWhite,
-                        onPressed: () {
+                        onPressed: () async {
+                          if(_controllerTitle.text.isEmpty) {
+                            Global.mensaje(context, 'Invalid number', 'You must enter a valid title');
+                            return;
+                          }
+
+                          if(_controllerDescription.text.isEmpty) {
+                            Global.mensaje(context, 'Invalid description', 'You must enter a valid description');
+                            return;
+                          }
+
+                          if(_controllerAddress.text.isEmpty) {
+                            Global.mensaje(context, 'Invalid address', 'You must enter a valid address');
+                            return;
+                          }
+
+                          if(int.tryParse(_controllerNumber.text) == null) {
+                            Global.mensaje(context, 'Invalid number', 'You must only enter numbers');
+                            return;
+                          }
                                 
-                          if(_controllerTitle.text.isEmpty || _controllerDescription.text.isEmpty || _controllerAdress.text.isEmpty || _controllerNumber.text.isEmpty) {
-                            Global.mensaje(context, 'You must fill all the fields', 'Please complete all required fields');
+                          if(selectedValue == '') {
+                            Global.mensaje(context, 'Invalid city', 'You must select a valid city');
                             return;
                           } else {
                             try {
-                              
+                              await gigs.add({
+                                'title': _controllerTitle.text,
+                                'description': _controllerDescription.text,
+                                'city': selectedValue,
+                                'address': _controllerAddress.text,
+                                'number': int.parse(_controllerNumber.text) ,
+                                'state': true,
+                                'email': FirebaseAuth.instance.currentUser!.email
+                              });
                             } catch (e) {
+                              print(e);
                             }
                           }
 

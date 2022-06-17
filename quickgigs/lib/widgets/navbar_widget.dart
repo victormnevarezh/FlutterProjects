@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
 import 'package:quickgigs/views/home_view.dart';
+import 'package:quickgigs/views/login_view.dart';
 import 'package:quickgigs/views/post_view.dart';
 import 'package:quickgigs/views/search_view.dart';
 import '../services/authentication_service.dart';

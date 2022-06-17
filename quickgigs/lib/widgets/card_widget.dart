@@ -37,7 +37,7 @@ const CardWidget({
     }
 
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: Material(
         borderRadius: BorderRadius.circular(20),
         child: Ink(
