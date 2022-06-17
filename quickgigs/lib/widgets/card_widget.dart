@@ -49,7 +49,7 @@ const CardWidget({
             borderRadius: BorderRadius.circular(15.0),
             onTap: onPressed,
             child: SizedBox(
-              height: height,
+              height: 40,
               width: width,
               child: Center(
                 child: Text(

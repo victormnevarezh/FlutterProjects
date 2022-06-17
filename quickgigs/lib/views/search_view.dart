@@ -131,7 +131,7 @@ class _SearchViewState extends State<SearchView> with SingleTickerProviderStateM
                         },
                         onChanged: (value) {
                           filterValue = value.toString();
-                          print(filterValue);
+                          resetStreamWithNameFilter();
                         },
                         onSaved: (value) {
                           filterValue = value.toString();
@@ -140,24 +140,31 @@ class _SearchViewState extends State<SearchView> with SingleTickerProviderStateM
                     ),
 
               StreamBuilder(
+                //filterStream is the current Stream that depends on the function resetStreamWithNameFilter()
                 stream: filterStream!,
                 builder: (context, snapshot) {
 
-                if (snapshot.hasData) {
-                List<QueryDocumentSnapshot> docs = (snapshot.data as QuerySnapshot).docs;
+                try {
+                  //The next line brings as docs a list made of the snapshot's items
+                  List<QueryDocumentSnapshot> docs = (snapshot.data as QuerySnapshot).docs;
 
                   return ListView.builder(
+                    shrinkWrap: true,
                     itemCount: docs.length,
-                    itemBuilder: (BuildContext context, int index){
+                    itemBuilder: (context, index) {
                       Map<String, dynamic> data = docs[index].data() as Map<String, dynamic>;
-                      CardWidget(
+                      print(data['title'].toString());
+                      return CardWidget(
                         title: data['title'].toString(),
                       );
                     }
                   );
+                } catch (e) {
+                  return Text(
+                    "Currently there are no gigs in that city :(",
+                    style: TextStyle(color: Global.colorWhite)
+                    );
                 }
-
-                  return Center(child: CircularProgressIndicator());
                 }
               )
             ],

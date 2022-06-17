@@ -55,7 +55,6 @@ class _HousePageState extends State<HousePage> {
                          title: snapshot.data[index].name,
                          height: 50,
                          width: 100,
-
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HouseDetailPage(
