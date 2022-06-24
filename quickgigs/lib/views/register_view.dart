@@ -1,4 +1,6 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
@@ -32,6 +34,8 @@ ParticleOptions particles = const ParticleOptions(
 
   @override
   Widget build(BuildContext context) {
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   final TextEditingController _controllerMail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -148,16 +152,25 @@ ParticleOptions particles = const ParticleOptions(
                                       _controllerMail.text,
                                       _controllerPassword.text
                                     );
+                                    try {
+                                      await users.add({
+                                        'email': FirebaseAuth.instance.currentUser!.email,
+                                        'admin': false
+                                      });
+                                    } catch (e) {
+                                      Global.mensaje(context,"Sorry, it seems something is wrong", "Error while creating a user");
+                                      return;
+                                    }
                                     Navigator.pop(context);
                                   } catch (e) {
-                                    Global.mensaje(context, "Error while creating a user", "Sorry, it seems something is wrong");
+                                    Global.mensaje(context,"Sorry, it seems something is wrong", "Error while creating a user");
                                     return;
                                   }
                                 } else {
-                                  Global.mensaje(context, "Passwords don't match", "It seems the passwords do not match");
+                                  Global.mensaje(context,"It seems the passwords do not match" ,"Passwords don't match");
                                 }
                               } else {
-                                Global.mensaje(context, "Empty fields", "You must fill all the fields in order to register");
+                                Global.mensaje(context,"You must fill all the fields in order to register" ,"Empty fields");
                               }
                             },
                           ),

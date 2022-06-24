@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickgigs/util/global.dart';
@@ -33,8 +34,30 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
     spawnMinRadius: 7.0,
   );
 
+  CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
+
+  String mail = '';
+
   @override
   Widget build(BuildContext context) {
+
+    Future<bool> userExists(String currentEmail) async {
+      bool returned = false;
+      // Get docs from collection reference
+      QuerySnapshot querySnapshot = await _collectionRef.get();
+      List<QueryDocumentSnapshot> docs = (querySnapshot as QuerySnapshot).docs;
+
+      docs.asMap().forEach((index, item) {
+        Map<String, dynamic> data = docs[index].data() as Map<String, dynamic>;
+
+        if(data['email'].toString() == currentEmail) {
+          returned = true;
+        }
+      });
+
+      return returned;
+    }
+
     final TextEditingController _controllerMail = TextEditingController();
     final TextEditingController _controllerPassword = TextEditingController();
     final auth = Provider.of<AuthService>(context);
@@ -116,19 +139,29 @@ class _LoginViewState extends State<LoginView> with SingleTickerProviderStateMix
                             hasColor: false,
                             colorButton: Global.colorWhite,
                             onPressed: () async {
+                              // This if checks if the textFields are empty
                               if(_controllerMail.text.isNotEmpty && _controllerPassword.text.isNotEmpty)
                               {
-                                try {
-                                  await auth.signInWithEmailAndPassword(
-                                    _controllerMail.text,
-                                    _controllerPassword.text,
-                                  );
-                                } catch (e) {
-                                  Global.mensaje(context, "Incorrect credentials", "It seems either your email or password is incorrect, verify them");
-                                  return;
+                                // This asigns the value to mail
+                                mail = _controllerMail.text;
+
+                                // This if checks if a true or false is returned in case the user exists or not in the database
+                                if(await userExists(mail)) {
+                                  try {
+                                    await auth.signInWithEmailAndPassword(
+                                      _controllerMail.text,
+                                      _controllerPassword.text,
+                                    );
+                                  } catch (e) {
+                                    Global.mensaje(context,"It seems either your email or password is incorrect, verify them", "Incorrect credentials");
+                                    return;
+                                  }
+                                } else {
+                                   Global.mensaje(context, "It seems either your email or password is incorrect, verify them" ,"Non existent account");
+                                   return;
                                 }
                               } else {
-                                Global.mensaje(context, "Empty fields", "You must fill all the fields in order to sign in");
+                                Global.mensaje(context,"You must fill all the fields in order to sign in", "Empty fields");
                               }
                             },
                           ),

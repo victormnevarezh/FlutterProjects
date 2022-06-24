@@ -178,7 +178,7 @@ ParticleOptions particles = const ParticleOptions(
                                 .toList(),
                         validator: (value) {
                           if (value == null) {
-                            Global.mensaje(context, 'You must select a city', 'Please select the city where you are offering your gig');
+                            Global.mensaje(context,'Please select the city where you are offering your gig', 'You must select a city');
                             return;
                           }
                         },
@@ -202,27 +202,27 @@ ParticleOptions particles = const ParticleOptions(
                         colorButton: Global.colorWhite,
                         onPressed: () async {
                           if(_controllerTitle.text.isEmpty) {
-                            Global.mensaje(context, 'Invalid number', 'You must enter a valid title');
+                            Global.mensaje(context,  'You must enter a valid title','Invalid title');
                             return;
                           }
 
                           if(_controllerDescription.text.isEmpty) {
-                            Global.mensaje(context, 'Invalid description', 'You must enter a valid description');
+                            Global.mensaje(context,'You must enter a valid description', 'Invalid description');
                             return;
                           }
 
                           if(_controllerAddress.text.isEmpty) {
-                            Global.mensaje(context, 'Invalid address', 'You must enter a valid address');
+                            Global.mensaje(context,'You must enter a valid address', 'Invalid address');
                             return;
                           }
 
                           if(int.tryParse(_controllerNumber.text) == null) {
-                            Global.mensaje(context, 'Invalid number', 'You must only enter numbers');
+                            Global.mensaje(context,'You must only enter numbers', 'Invalid number');
                             return;
                           }
                                 
                           if(selectedValue == '') {
-                            Global.mensaje(context, 'Invalid city', 'You must select a valid city');
+                            Global.mensaje(context,'You must select a valid city', 'Invalid city');
                             return;
                           } else {
                             try {
@@ -235,6 +235,7 @@ ParticleOptions particles = const ParticleOptions(
                                 'state': true,
                                 'email': FirebaseAuth.instance.currentUser!.email
                               });
+                              Global.mensaje(context, 'Your gig has been posted, wait for a call from someone interested', 'Gig succesfully posted');
                             } catch (e) {
                               print(e);
                             }

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:quickgigs/util/global.dart';
+import 'package:quickgigs/views/detail_gig_view.dart';
 import 'package:quickgigs/widgets/appbar_drawer_widget.dart';
 import 'package:quickgigs/widgets/card_widget.dart';
 import 'package:quickgigs/widgets/button_widget.dart';
@@ -173,9 +174,19 @@ class _SearchViewState extends State<SearchView> with SingleTickerProviderStateM
                       itemBuilder: (context, index) {
                         Map<String, dynamic> data = docs[index].data() as Map<String, dynamic>;
                         print(data['title'].toString());
-                        return CardWidget(
-                          title: data['title'].toString(),
-                        );
+
+                          return CardWidget(
+                            title: data['title'].toString(),
+                            onPressed: () async {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => DetailGigView(
+                                  selectedGig: data,
+                                  )
+                                )
+                              );
+                            },
+                          );
+
                       }
                     );
                   } catch (e) {

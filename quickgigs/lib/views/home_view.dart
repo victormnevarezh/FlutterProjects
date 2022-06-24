@@ -124,7 +124,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
     
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 15),
                       child: Column(
                         children: [
                           Padding(
@@ -164,7 +164,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
     
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                      padding: const EdgeInsets.fromLTRB(0, 15, 0, 30),
                       child: Column(
                         children: [
                           Padding(
